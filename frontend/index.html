@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>To String</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- favicon.svg -->
+
+    <link rel="icon" href="./favicon.svg" />
+</head>
+
+<body>
+
+    <script src="jquery.js"></script>
+    <container class="container"> 
+
+        <div class="header">
+            <div class="nameContainer">
+                <input class=numberInput id="name" type="text"
+                placeholder="Please add an inteer between 0 and 99999"></input>
+            </div>
+        </div>
+        <div class="buttonContainer">
+            <button class="sendButton">Send</button>
+            
+        </div>
+        <h1 class="title" id="result"></h1>
+    </container>
+
+
+
+    <script>
+        var url = "http://localhost:3000";
+        $('.sendButton').click(function () {
+
+            var number = $("input.numberInput").val();
+            let body = {
+                "number": number,
+            }
+            console.log(body);
+            $.ajax({
+                url: `${url}/numbers`,
+                headers: {
+                    "accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                },
+                type: 'POST',
+                data: JSON.stringify({ "data": body }),
+                success: function (result) {
+                    document.getElementById("result").innerHTML = result.data;
+                }
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
